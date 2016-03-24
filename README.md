@@ -8,7 +8,7 @@ On the client-side, `main.c` should be populated with the COM port that the NB-I
 
 http://com0com.sourceforge.net/
 
-Simply install and run com0com and it will create pairs of virtual COM ports (the default settings are fine).  When you start SoftRadio, connect it to one of these virtual COM ports instead of a real COM part.  Populate `main.c` with the name of other COM port of the pair.  Then build the client-side using the supplied GNU make file and any version of GCC for Windows.  As there are some subtle differences between the way SoftRadio operates and the way an NB-IoT module operates, to run the client with SoftRadio you must invoke it at the Windows command prompt with the parameter `-s` as follows:
+Simply install and run com0com and it will create pairs of virtual COM ports (the default settings are fine).  When you start SoftRadio, connect it to one of these virtual COM ports instead of a real COM port.  Populate `main.c` with the name of other COM port of the pair.  Then build the client-side using the supplied GNU make file and any version of GCC for Windows.  As there are some subtle differences between the way SoftRadio operates and the way an NB-IoT module operates, to run the client with SoftRadio you must invoke it at the Windows command prompt with the parameter `-s` as follows:
 
 `client-side -s`
 
