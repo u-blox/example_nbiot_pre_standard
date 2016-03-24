@@ -19,7 +19,7 @@ namespace example
         // will be displated.  Press enter at the prompt without entering any
         // characters to exit the program.
         //
-        // IMPORTANT: the DLLs that provide the communication path to NeulNet
+        // IMPORTANT: the DLLs that provide the communication path to the server
         // use IP ports 5671 (AMQP SSL) and 5672 (AMQP).  If you are unable
         // to connect to the NB-IoT device endpoint using this example and
         // your URL/username/password/UUID all appear correct, then make sure
