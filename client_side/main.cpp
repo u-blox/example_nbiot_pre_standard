@@ -3,7 +3,7 @@
 // COM port, sends an initial uplink datagram, then sends uplink datagrams
 // based on user input and polls for downlink datagrams from the
 // network.
-// It should be used in conjunction with the client-side example code.
+// It should be used in conjunction with the server-side example code.
 
 #include "stdint.h"
 #include "string.h"
