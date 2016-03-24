@@ -1,6 +1,6 @@
 # Example NB-IoT Pre-Standard
 
-This repository contains two simple server-side and client-side example programs that demostrate end-to-end communications using a u-blox NB-IoT module.  The server-side is written in C# and compiles under Microsoft Visual Studio.  The client-side is written in C++ and compiles under GCC with a GNU make file; this way the client-side may easily be ported to other targets if desired.
+This repository contains a pair of simple server-side and client-side example programs that demostrate end-to-end communications using a u-blox NB-IoT module.  The server-side is written in C# and compiles under Microsoft Visual Studio.  The client-side is written in C++ and compiles under GCC with a GNU make file; this way the client-side may easily be ported to other targets if desired.
 
 On the server-side, `Program.cs` must be populated with the host name of your Huawei network server, your account on that server, the password for that account and the UUID of the NB-IoT device you wish to communicate with.  The compiled executable can then be run from a Windows command prompt.  It will connect to your Huawei network server account and display any uplink datagrams received from the NB-IoT device. You may simultaneously enter datagrams as strings and send them on the downlink to the NB-IoT device.
 
