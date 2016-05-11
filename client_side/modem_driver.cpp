@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <windows.h>
-#include <utilities.h>
+#include "utilities.h"
 #include "serial_driver.h"
 #include "modem_driver.h"
 
@@ -179,22 +179,43 @@ Nbiot::AtResponse Nbiot::waitResponse(const char * pExpected, time_t timeoutSeco
     return response;
 }
 
+static void charToTchar(const char *pIn, TCHAR *pOut, uint32_t size)
+{
+    memset (pOut, 0, size);
+#ifdef _MSC_VER
+    uint32_t size_needed = MultiByteToWideChar(CP_UTF8, 0, pIn, (int)strlen(pIn), NULL, 0);
+    if (size_needed > size)
+    {
+        size_needed = size;
+    }
+    MultiByteToWideChar(CP_UTF8, 0, pIn, (int)strlen(pIn), pOut, size_needed);
+#else
+    strncpy(pOut, pIn, size);
+#endif
+}
+
 // ----------------------------------------------------------------
 // PUBLIC FUNCTIONS
 // ----------------------------------------------------------------
 
+
 // Constructor
 Nbiot::Nbiot(const char * pPortname)
 {
+    gpResponse   = NULL;
+    gpSerialPort = NULL;
     gLenResponse = 0;
     gMatched = 0;
     gLenRx = 0;
     gInitialised = false;
     gpSerialPort = new SerialPort();
-    
+    TCHAR tcharPortname[MAX_PATH];
+
+    charToTchar(pPortname, tcharPortname, sizeof (tcharPortname));
+
     if (gpSerialPort)
     {
-        if (gpSerialPort->connect(pPortname))
+        if (gpSerialPort->connect(tcharPortname))
         {
             printf ("Connected to port %s.\n", pPortname);
             gInitialised = true;
@@ -238,7 +259,7 @@ bool Nbiot::connect(bool usingSoftRadio, time_t timeoutSeconds)
             {
                 // First check for service using +NAS.
                 sendPrintf("AT+NAS%s", AT_TERMINATOR);
-                response = waitResponse("+NAS:Connected (activated)\r\n");
+                response = waitResponse("+NAS: Connected (activated)\r\n");
             }
 
             if (response == AT_RESPONSE_STARTS_AS_EXPECTED)

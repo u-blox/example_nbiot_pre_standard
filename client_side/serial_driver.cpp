@@ -59,6 +59,22 @@ bool SerialPort::connect(const TCHAR * pPortName)
             success = true;
         }
     }
+    else
+    {
+        uint32_t err = ::GetLastError();
+#ifdef _MSC_VER
+        wchar_t * pMsgBuf;
+        FormatMessage(
+            FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+            NULL,
+            err,
+            MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPTSTR) &pMsgBuf, 0, NULL);
+        printf("Error connecting to serial port %s %s.\n", pPortName, pMsgBuf);
+#else
+        uint32_t err = ::GetLastError();
+        printf("Error %d connecting to serial port %s.\n", err, pPortName);
+#endif
+    }
 
     if (!success)
     {

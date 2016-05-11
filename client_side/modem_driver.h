@@ -95,7 +95,7 @@ protected:
     
     // Pointer to a response string from the modem, used during
     // transmit operations.
-    const char * gpResponse = NULL;
+    const char * gpResponse;
     
     // Length of the string pointed to by pResponse.
     uint32_t gLenResponse;
@@ -104,7 +104,7 @@ protected:
     uint8_t gMatched;
     
     // Pointer to serial port instance.
-    SerialPort * gpSerialPort = NULL;
+    SerialPort * gpSerialPort;
     
     // Flag to indicate that this driver has been succesfully initialised.
     bool gInitialised;
