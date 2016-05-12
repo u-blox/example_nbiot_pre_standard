@@ -61,7 +61,7 @@ bool SerialPort::connect(const TCHAR * pPortName)
     }
     else
     {
-        uint32_t err = ::GetLastError();
+        uint32_t err = GetLastError();
 #ifdef _MSC_VER
         wchar_t * pMsgBuf;
         FormatMessage(
@@ -69,10 +69,9 @@ bool SerialPort::connect(const TCHAR * pPortName)
             NULL,
             err,
             MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPTSTR) &pMsgBuf, 0, NULL);
-        printf("Error connecting to serial port %s %s.\n", pPortName, pMsgBuf);
+        printf("!!! Error connecting to serial port '%S': %S.\n", pPortName, pMsgBuf);
 #else
-        uint32_t err = ::GetLastError();
-        printf("Error %d connecting to serial port %s.\n", err, pPortName);
+        printf("!!! Error %d connecting to serial port %s.\n", err, pPortName);
 #endif
     }
 
@@ -106,7 +105,7 @@ bool SerialPort::transmitBuffer(const char *pBuf, uint32_t lenBuf)
         WriteFile(gSerialPortHandle, pBuf, lenBuf, &result, NULL);
         if (!result)
         {
-            printf ("Transmit failed with error code %ld.\n", GetLastError());
+            printf ("!!! Transmit failed with error code %ld.\n", GetLastError());
         }
     }
 
@@ -126,7 +125,7 @@ uint32_t SerialPort::receiveBuffer (char *pBuf, uint32_t lenBuf)
         result = ReadFile(gSerialPortHandle, pBuf, lenBuf, &readLength, NULL);
         if (!result)
         {
-            printf ("Receive failed with error code %ld.\n", GetLastError());
+            printf ("!!! Receive failed with error code %ld.\n", GetLastError());
         }
     }
 
@@ -155,7 +154,7 @@ int32_t SerialPort::receiveChar()
         }
         else
         {
-            printf ("Receive failed with error code %ld.\n", GetLastError());
+            printf ("!!! Receive failed with error code %ld.\n", GetLastError());
         }
     }
 

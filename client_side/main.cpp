@@ -78,7 +78,7 @@ int main(int argc, char* argv[])
         }
         else
         {
-            printf("Unknown command-line parameter '%s'.\n", argv[x]);
+            printf("!!! Unknown command-line parameter '%s'.\n", argv[x]);
             success = false;
         }
     }    
@@ -101,7 +101,7 @@ int main(int argc, char* argv[])
 
                 if (success)
                 {
-                    while (success)
+                    while (true)
                     {
                         // Get user input
                         printf ("Type in a datagram to send to the network and press <enter>, or just press <enter> to check the downlink.\n");
@@ -111,10 +111,9 @@ int main(int argc, char* argv[])
                         {
                             // If there was user input, send it on the uplink,
                             // omitting the newline character from the end
-                            success = pModem->send (datagram, strlen(datagram) - 1);
-                            if (!success)
+                            if (!pModem->send (datagram, strlen(datagram) - 1))
                             {
-                                printf ("Failed to send uplink datagram.\n");
+                                printf ("!!! Failed to send uplink datagram.\n");
                             }
                         }
                         
@@ -128,20 +127,21 @@ int main(int argc, char* argv[])
                             printf ("Datagam received from network: \"%.*s\".\n", datagramLen, datagram);
                         }
                     }
+                    printf ("Exitting.\n");
                 }
                 else
                 {
-                    printf ("Failed to send initial datagram to the network.\n");
+                    printf ("!!! Failed to send initial datagram to the network.\n");
                 }
             }
             else
             {
-                printf ("Failed to connect to the network.\n");
+                printf ("!!! Failed to connect to the network.\n");
             }
         }
         else
         {
-            printf ("Unable to connect serial port '%s'.\n", portString);
+            printf ("!!! Unable to connect serial port '%s'.\n", portString);
         }
     }
     else

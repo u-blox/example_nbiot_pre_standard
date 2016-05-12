@@ -22,6 +22,9 @@
 // Default timeout when waiting for a response from the CIoT modem
 #define DEFAULT_RESPONSE_TIMEOUT_SECONDS 5
 
+// Default timeout when flushing the modem at the outset
+#define DEFAULT_FLUSH_TIMEOUT_SECONDS 1
+
 // ----------------------------------------------------------------
 // CLASSES
 // ----------------------------------------------------------------

@@ -48,7 +48,7 @@ public:
 protected:
     // The serial port handle, set to INVALID_HANDLE_VALUE if
     // not configured.
-    HANDLE gSerialPortHandle; 
+    HANDLE gSerialPortHandle;
 };
 
 #endif

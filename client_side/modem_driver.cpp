@@ -159,8 +159,11 @@ Nbiot::AtResponse Nbiot::waitResponse(const char * pExpected, time_t timeoutSeco
             }
             else
             {
-                printf ("WARNING: unexpected response from module.\n");
-                printf ("Expected: %s... Received: %.*s\r\n", pExpected, (int) gLenResponse, gpResponse);
+                if (pExpected != NULL)
+                {
+                    printf ("WARNING: unexpected response from module.\n");
+                    printf ("Expected: %s... Received: %.*s\r\n", pExpected, (int) gLenResponse, gpResponse);
+                }
                 // Reset response pointer
                 gpResponse = NULL;
             }
@@ -219,6 +222,8 @@ Nbiot::Nbiot(const char * pPortname)
         {
             printf ("Connected to port %s.\n", pPortname);
             gInitialised = true;
+            // Flush out any initialisation messages from the modem
+            waitResponse(NULL, DEFAULT_FLUSH_TIMEOUT_SECONDS);
         }
         else
         {
@@ -335,7 +340,7 @@ bool Nbiot::send (char * pMsg, uint32_t msgSize, time_t timeoutSeconds)
     }
     else
     {
-        printf ("Datagram is too long (%d characters when only %d bytes can be sent).\r\n", msgSize, (int) (sizeof (gHexBuf) / 2));
+        printf ("!!! Datagram is too long (%d characters when only %d bytes can be sent).\r\n", msgSize, (int) (sizeof (gHexBuf) / 2));
     }
 
     return success;
